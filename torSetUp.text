@@ -1,0 +1,32 @@
+tor setup
+
+1- cp /etc/tor/torrc /etc/tor/torrc_backup
+2- nano /etc/tor/torrc
+
+3- add this >>>>>>>>>>>>>>>>>>>>>>>>>
+
+## Configuration file for a typical Tor user
+## Last updated 9 October 2013 for Tor 0.2.5.2-alpha.
+## (may or may not work for much older or much newer versions of Tor.)
+EntryNodes {af},{ax},{al},{dz},{ad},{ao},{ai},{aq},{ag},{ar},{am},{aw},{au},{at},{az},{bs},{bh},{bd},{bb},{by},{be},{bz},{bj},{bm},{bt},{bo},{ba},{bw},{bv},{br},{io},{vg},{bn},{bg},{bf},{bi},{kh},{cm},{ca},{cv},{ky},{cf} StrictNodes *
+
+#SocksPort 192.168.1.69:9050
+#SocksPolicy accept 192.168.1.0/24
+#RunAsDaemon 1
+#DataDirectory /var/lib/tor
+##
+
+# Hidden service #1 is a web app that supports HTTP and HTTPS
+HiddenServiceDir /var/lib/tor/webapp_service/
+HiddenServicePort 80 127.0.0.1:80
+HiddenServicePort 443 127.0.0.1:443
+
+# Hidden service #2 will have a different .onion URL but
+# still point to this same server.
+HiddenServiceDir /var/lib/tor/ssh_service/
+HiddenServicePort 22 127.0.0.1:22
+
+
+ORPort 443
+Exitpolicy reject *:*
+Nickname keen
